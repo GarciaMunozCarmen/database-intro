@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface CursoService {
     Optional<Curso> findById(Integer idCurso);
+    List<Curso> getCursos();
     List<Curso> getCursos (String campo, TipoOrden tipoOrden);
     List<Curso> getCursos (Boolean estado);
     Curso crearCurso (Curso curso);

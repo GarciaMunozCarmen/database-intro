@@ -5,7 +5,7 @@ public class Curso {
     private Boolean activo;
     private String nombre;
 
-    public Curso(int id, boolean activo, String nombre) {
+    public Curso(Integer id, Boolean activo, String nombre) {
         this.id = id;
         this.activo = activo;
         this.nombre = nombre;

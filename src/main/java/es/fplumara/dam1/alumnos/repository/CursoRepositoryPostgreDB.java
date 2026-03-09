@@ -25,6 +25,7 @@ public class CursoRepositoryPostgreDB implements CursoRepository{
     /**
      * Crea la tabla si no existe
      */
+    @Override
     public void initSchema() {
         String ddl = """
                 CREATE TABLE IF NOT EXISTS cursos (
@@ -156,6 +157,23 @@ public class CursoRepositoryPostgreDB implements CursoRepository{
     }
 
     @Override
+    public List<Curso> listar() {
+        String sql = "SELECT * FROM cursos";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            List<Curso> cursos = new ArrayList<>();
+
+            while (rs.next()){
+                cursos.add(mapCurso(rs));
+            }
+            return cursos;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
     public List<Curso> listarPorEstado(Boolean estado) {
         String sql = "SELECT * FROM CURSOS WHERE activo = ?";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
@@ -174,7 +192,7 @@ public class CursoRepositoryPostgreDB implements CursoRepository{
 
     @Override
     public List<Curso> listarOrdenadoPor(String campo, TipoOrden tipoOrden) {
-        String sql = "SELECT * FROM CURSOS ORDER BY ? ?";
+        String sql = "SELECT * FROM CURSOS ORDER BY" + campo +" " + String.valueOf(tipoOrden);
         try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
             ps.setString(1, campo);
             ps.setString(2, String.valueOf(tipoOrden));

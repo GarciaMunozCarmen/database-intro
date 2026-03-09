@@ -24,6 +24,11 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
+    public List<Curso> getCursos() {
+        return cursoRepository.listar();
+    }
+
+    @Override
     public List<Curso> getCursos(String campo, TipoOrden tipoOrden) {
         if(campo == null || tipoOrden == null || campo.isEmpty()){
             throw new IllegalArgumentException("Los campos no pueden ser nulos");

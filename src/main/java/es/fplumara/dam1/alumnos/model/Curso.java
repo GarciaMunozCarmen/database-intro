@@ -15,9 +15,6 @@ public class Curso {
         if(this.activo == null){
             this.activo = true;
         }
-        if(this.id == null){
-            throw new IllegalArgumentException("El id no puede ser nulo");
-        }
     }
 
     public int getId() {

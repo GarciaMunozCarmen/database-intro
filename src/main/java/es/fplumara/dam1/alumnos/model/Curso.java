@@ -28,7 +28,7 @@ public class Curso {
         this.id = id;
     }
 
-    public boolean isActivo() {
+    public Boolean isActivo() {
         return activo;
     }
 
